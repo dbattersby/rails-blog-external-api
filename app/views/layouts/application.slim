@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title CompanyBlogDemo
+    meta name="description" content="Company Blog Demo to show using an external Roda based API"
+    link rel="icon" type="image/png" href=file_path("favicon.png")
+
+    == csrf_meta_tags
+    == csp_meta_tag
+
+    == stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track" => "reload"
+    == stylesheet_link_tag "application", media: "all", "data-turbo-track" => "reload"
+
+    == javascript_importmap_tags
+
+    javascript:
+      alert('Slim supports embedded javascript!')
+
+  body
+    main class="container mx-auto mt-28 px-5 flex"
+      == yield
+
+    div id="footer"
+      p
+        p "This is the footer"
+        a href="
