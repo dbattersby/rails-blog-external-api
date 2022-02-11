@@ -1,10 +1,10 @@
-h1 Latest Posts
+h1 class="font-bold text-xl mb-4" Latest Posts
 
-p Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis natus maiores obcaecati laboriosam et facere animi nemo assumenda, voluptatum reiciendis eos odit magni sint quam dolorum cumque libero optio voluptates!
+p class="mb-5" Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis natus maiores obcaecati laboriosam et facere animi nemo assumenda, voluptatum reiciendis eos odit magni sint quam dolorum cumque libero optio voluptates!
 
 ul
   - @posts.each do |post|
-    li
+    li class="border-2 p-3 mb-3"
       a href="/posts/#{post['id']}"
         = post['title']
       

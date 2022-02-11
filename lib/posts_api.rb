@@ -4,17 +4,15 @@ require 'faraday'
 
 # used to get the posts from the API
 class PostsAPI
-  def initialize data = nil
+  def initialize
     @api_entry = Rails.env.development? ? "http://127.0.0.1:4000/posts" : "https://roda-api.herokuapp.com/posts"
-    @params = data unless data.nil?
-
     p "Using #{ Rails.env } API at: #{@api_entry}"
-    p "Params: #{ @params }" unless @params.nil?
   end
 
   # get all posts
   def all
-    get_data @api_entry
+    data = get_data @api_entry
+    data["posts"]
   end
 
   # GET: /posts/:id
@@ -23,21 +21,24 @@ class PostsAPI
   end
 
   # GET: /posts/:id/comments
-  def comments
-    get_data @api_entry + "/#{params[:id]}/comments"
+  def comments id
+    data = get_data @api_entry + "/#{id}/comments"
+    data["comments"]
   end
 
   # POST: /posts
-  def save
-    post_data @api_entry
+  def save data
+    params = { "post" => { "title" => data[:post][:title], "body" => data[:post][:body] } }
+    post_data @api_entry, params
   end
-
+  
   # POST: /posts/:id/comments
   def save_comment
+    params = { "comment" => { "name" => data[:comment][:name], "body" => data[:comment][:body], "post_id" => data[:comment][:post_id] } }
     post_data @api_entry + "/#{params[:id]}/comments"
   end
 
-  def post_data api_endpoint
+  def post_data api_endpoint, params
     p "Send data to: #{api_endpoint}"
     
     uri = URI.parse(api_endpoint)
@@ -46,7 +47,7 @@ class PostsAPI
     begin
       response = Faraday.post uri do |request|
         request.headers['Content-Type'] = 'application/json'
-        request.body = @params.to_json
+        request.body = params.to_json
       end
     
       if response.status == 200

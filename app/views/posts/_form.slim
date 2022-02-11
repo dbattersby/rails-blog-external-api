@@ -1,0 +1,9 @@
+= form_with url: post_path, method: :post, id: "post" do
+  div
+    = label :post, :title, class: "block mb-2"
+    = text_field_tag "post[title]", nil, class: "block w-full mb-2"
+  div
+    = label :post, :body, class: "block mb-2"
+    = text_area_tag "post[body]", nil, class: "block w-full mb-2"
+
+  = submit_tag "Create", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

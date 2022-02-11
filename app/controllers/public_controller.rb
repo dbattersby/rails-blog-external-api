@@ -3,12 +3,7 @@ class PublicController < ApplicationController
   before_action :set_api_data, only: [:home]
 
   def home
-    data = @posts_api.all
-    @posts = data["posts"]
-  end
-
-  def posts
-    @post = @posts_api.show(params[:id])
+    @posts = @posts_api.all
   end
   
   private
