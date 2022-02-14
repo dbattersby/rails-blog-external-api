@@ -1,6 +1,8 @@
+h2 class="text-lg font-bold mb-3"
+  = "New Comment"
 div class="bg-slate-100 border-2 rounded p-5"
-  = form_with url: comment_path, method: :post, id: "comment" do
-    = hidden_field_tag("post_id", @post['id'])
+  = form_with url: comment_path, method: :post, id: "comment", data: { controller: "comments", action: "turbo:submit-end->comments#reset"} do
+    = hidden_field_tag("comment[post_id]", @post['id'])
     div
       = label :post, :name, class: "block mb-2"
       = text_field_tag "comment[name]", nil, class: "block w-full mb-2"
@@ -8,4 +10,4 @@ div class="bg-slate-100 border-2 rounded p-5"
       = label :comment, :body, class: "block mb-2"
       = text_area_tag "comment[body]", nil, class: "block w-full mb-2"
 
-    = submit_tag "Create", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    = submit_tag "Create", class: "btn btn-blue"

@@ -23,7 +23,11 @@ class PostsAPI
   # GET: /posts/:id/comments
   def comments id
     data = get_data @api_entry + "/#{id}/comments"
-    data["comments"]
+
+    # return comments in descending order
+    data["comments"].sort_by{ |c|
+      c["created_at"]
+    }.reverse
   end
 
   # POST: /posts
@@ -33,9 +37,12 @@ class PostsAPI
   end
   
   # POST: /posts/:id/comments
-  def save_comment
+  def save_comment data
     params = { "comment" => { "name" => data[:comment][:name], "body" => data[:comment][:body], "post_id" => data[:comment][:post_id] } }
-    post_data @api_entry + "/#{params[:id]}/comments"
+    request = post_data(@api_entry + "/#{data[:comment][:post_id]}/comments", params)
+
+    # return the comment unless there was an error
+    request["errors"].present? ? request["errors"] : request["comment"]
   end
 
   def post_data api_endpoint, params
@@ -53,6 +60,8 @@ class PostsAPI
       if response.status == 200
         p "Request status: #{response.status}"
         JSON.parse(response.body)
+      elsif response.status == 403
+        p response.errors
       else
         p "Request status: #{response.status}"
         {}
@@ -73,6 +82,8 @@ class PostsAPI
       if response.status == 200
         p "Request status: #{response.status}"
         JSON.parse(response.body)
+      elsif response.status == 403
+        p response.errors
       else
         p "Request status: #{response.status}"
         {}

@@ -1,0 +1,7 @@
+div id="#{ comment["id"] }" class="border-b-2 border-gray-300 bg-slate-200 rounded p-4 mb-4"
+  p class="font-bold"
+    = comment["name"]
+  p
+    = comment["body"]
+  p class="text-gray-600 text-sm"
+    = "Posted #{time_ago_in_words(comment["created_at"])} ago"

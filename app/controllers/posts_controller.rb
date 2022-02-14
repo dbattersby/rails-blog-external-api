@@ -14,12 +14,6 @@ class PostsController < ApplicationController
 
   def create
     @post = @posts_api.save(params)
-
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace_html("posts/show", :post => @post)
-      end
-    end
   end
   
   private
