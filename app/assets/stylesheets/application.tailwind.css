@@ -15,4 +15,8 @@
   .btn-blue:hover {
     @apply bg-blue-700;
   }
+
+  .post-body p {
+    @apply mb-4;
+  }
 }
