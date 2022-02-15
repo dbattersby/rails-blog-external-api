@@ -1,11 +1,13 @@
 = form_with url: post_path, method: :post, id: "post", data: { controller: "posts", action: "turbo:submit-end->posts#success" } do
+  = turbo_frame_tag "alerts" do
+    = render partial: "layouts/alerts", locals: { alerts: [], errors: false }
   div data-posts-target="response"
   div data-posts-target="fields"
     div
-      = label :post, :title, class: "block mb-2"
+      = label :post, :title, class: "block font-bold mb-2"
       = text_field_tag "post[title]", nil, class: "block w-full mb-2"
     div
-      = label :post, :body, class: "block mb-2"
+      = label :post, :body, class: "block font-bold mb-2"
       = text_area_tag "post[body]", nil, class: "block w-full mb-2"
 
     = submit_tag "Create", class: "btn btn-blue"

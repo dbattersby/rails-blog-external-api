@@ -1,10 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "fields", "response" ];
+  static targets = [ "alerts", "fields", "response" ];
 
   success() {
-    this.fieldsTarget.style.display = "none";
-    this.responseTarget.innerHTML = "Post has been saved successfully! 🎉";
+    setTimeout(() => {
+      if(this.alertsTarget.dataset.errors != "true") {
+        this.fieldsTarget.style.display = "none";
+        this.responseTarget.innerHTML = "Post has been saved successfully 🎉";
+      }
+    }, 500);
   }
 }

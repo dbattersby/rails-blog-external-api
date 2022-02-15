@@ -3,9 +3,11 @@ h2 class="text-lg font-bold mb-3"
 div class="bg-slate-100 border-2 rounded p-5"
   = form_with url: comment_path, method: :post, id: "comment", data: { controller: "comments", action: "turbo:submit-end->comments#reset"} do
     = hidden_field_tag("comment[post_id]", @post['id'])
+    = turbo_frame_tag "alerts" do
+      = render partial: "layouts/alerts", locals: { alerts: [], errors: false }
     div
       = label :post, :name, class: "block mb-2"
-      = text_field_tag "comment[name]", nil, class: "block w-full mb-2"
+      = text_field_tag "comment[name]", nil, required: true, class: "block w-full mb-2"
     div
       = label :comment, :body, class: "block mb-2"
       = text_area_tag "comment[body]", nil, class: "block w-full mb-2"

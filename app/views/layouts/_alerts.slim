@@ -1,0 +1,10 @@
+div data-posts-target="alerts" data-errors="#{ errors }"
+  - alerts.each do |alert|
+    - if alert[:type] == "success"
+      div class="border-b-2 border-green-300 bg-green-200 rounded p-4 mb-4"
+        p class="font-bold"
+          = alert[:body]
+    - else
+      div class="border-b-2 border-pink-300 bg-pink-200 rounded p-4 mb-4"
+        p class="font-bold"
+          = alert[:body]

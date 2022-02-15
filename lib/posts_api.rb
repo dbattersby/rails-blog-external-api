@@ -39,10 +39,7 @@ class PostsAPI
   # POST: /posts/:id/comments
   def save_comment data
     params = { "comment" => { "name" => data[:comment][:name], "body" => data[:comment][:body], "post_id" => data[:comment][:post_id] } }
-    request = post_data(@api_entry + "/#{data[:comment][:post_id]}/comments", params)
-
-    # return the comment unless there was an error
-    request["errors"].present? ? request["errors"] : request["comment"]
+    post_data(@api_entry + "/#{data[:comment][:post_id]}/comments", params)
   end
 
   def post_data api_endpoint, params
